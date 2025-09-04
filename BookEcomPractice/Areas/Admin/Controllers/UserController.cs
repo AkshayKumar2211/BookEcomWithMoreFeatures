@@ -2,11 +2,13 @@
 using BookEcomPractice.DataAccess.Repository.IRepository;
 using BookEcomPractice.Models;
 using BookEcomPractice.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookEcomPractice.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BookEcomPractice.Utility
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,30 +26,61 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ContentManagement</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverType</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">User Mangement</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                            </div>
-                        </li>
-                    </ul>
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+						</li>
+						@if (User.IsInRole(SD.Role_Admin))
+						{
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ContentManagement</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+									<a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverType</a>
+									<a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+								</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company/User</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+									<a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
+								</div>
+							</li>
+						}
+						@if (User.IsInRole(SD.Role_Employee))
+						{
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ContentManagement</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+									<a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverType</a>
+									<a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+								</div>
+							</li>
+						}
+						@* @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= null&&
+												HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= 0)
+						{
+							var Count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount);
+							<li>
+								<a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
+									<i class="fas fa-shopping-cart"></i>&nbsp;(@Count)
+								</a>
+							</li>
+						}
+						else
+						{
+							<li>
+								<a class="nav-link text-white">
+									<i class="fas fa-shopping-cart"></i>&nbsp;(0)
+								</a>
+							</li>
+						} *@
+					</ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
