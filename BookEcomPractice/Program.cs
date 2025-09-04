@@ -5,6 +5,7 @@ using BookEcomPractice.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,20 @@ builder.Services.ConfigureApplicationCookie(Options =>
     Options.LogoutPath = $"/Identity/Account/Login";
     Options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+// stripe payment
+builder.Services.Configure<StripeSetting>
+    (builder.Configuration.GetSection("StripeSetting"));
+
+//email
+builder.Services.Configure<EmailSettings>
+    (builder.Configuration.GetSection("EmailSettings"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,7 +63,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("StripeSetting")["Secretkey"];
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,0 +1,113 @@
+﻿@model BookEcomPractice.Models.ViewModels.ShoppingCartVM
+
+<form method="post">
+    <div class="backgroundWhiteBorder my-4">
+        <div class="container">
+            <div class="card shadow-lg rounded-3">
+                <!-- Header -->
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fa fa-shopping-cart"></i> &nbsp; Shopping Cart
+                    </h5>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-light btn-sm">
+                        Continue Shopping
+                    </a>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    @if (Model.ListCart != null && Model.ListCart.Any())
+                    {
+                        @foreach (var list in Model.ListCart)
+                        {
+                            <div class="row align-items-center border-bottom py-3">
+                                <!-- Product Image -->
+                                <div class="col-12 col-md-2 text-center mb-2 mb-md-0">
+                                    <img src="@list.Product.ImageUrl"
+                                         alt="@list.Product.Title"
+                                         class="img-fluid rounded shadow-sm"
+                                         style="max-height:120px;" />
+                                </div>
+
+                                <!-- Product Info -->
+                                <div class="col-12 col-md-6">
+                                    <h5 class="fw-bold">@list.Product.Title</h5>
+                                    <p class="text-muted small">@Html.Raw(list.Product.Description)</p>
+                                </div>
+
+                                <!-- Price & Quantity -->
+                                <div class="col-12 col-md-4 text-md-end">
+                                    <h6 class="fw-bold mb-2">
+                                        @list.Price <span class="text-muted">x</span> @list.Count =
+                                        <span class="text-success">@(list.Price* list.Count)</span>
+                                    </h6>
+
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="plus" asp-route-Id="@list.Id" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                        <a asp-action="minus" asp-route-Id="@list.Id" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-minus"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-Id="@list.Id" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Total -->
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8">
+                                <ul class="list-group shadow-sm">
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span class="text-info fw-bold">Total (Amount)</span>
+                                        <strong class="text-info">
+                                            $ <span id="txtOrderTotal">@Model.OrderHeader.OrderTotal</span>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-shopping-basket fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Your cart is empty</h5>
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-primary mt-3">
+                                Start Shopping
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <div class="row">
+                       @*  @if (!Model.OrderHeader.ApplicationUser.EmailConfirmed)
+                        {
+                            <div class="col-8 @ViewBag.EmailCSS">
+                                @ViewBag.EmailMessage
+                            </div>
+                            <div class="col-4 text-end">
+                                <button type="submit" class="btn btn-outline-warning">
+                                    Click here to confirm your email!!
+                                </button>
+                            </div>
+                        } change if after email confirmation *@
+                        @if(true)  
+                        {
+                            <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6">
+                                <a asp-action="Summary" class="btn btn-success w-100">
+                                    Proceed to Checkout
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

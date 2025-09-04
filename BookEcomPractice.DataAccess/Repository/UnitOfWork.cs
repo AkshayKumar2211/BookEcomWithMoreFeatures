@@ -22,6 +22,7 @@ namespace BookEcomPractice.DataAccess.Repository
             ShoppingCart=new ShoppingCartRepository(_context);
             OrderHeader=new OrderHeaderRepository(_context);
             OrderDetail=new OrderDetailRepository(_context);
+            ApplicationUser=new ApplicationRepository(_context);
         }
         public ICategoryRepository Category { get; private set; }
 
@@ -35,7 +36,7 @@ namespace BookEcomPractice.DataAccess.Repository
 
         public IOrderDetailRepository OrderDetail { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
-
+        public IApplicationRepository ApplicationUser { get; private set; }
          public void Save()
         {
             _context.SaveChanges();

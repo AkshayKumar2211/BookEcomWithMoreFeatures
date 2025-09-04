@@ -19,6 +19,7 @@ namespace BookEcomPractice.DataAccess.Repository.IRepository
 
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailRepository OrderDetail { get; }
+        IApplicationRepository ApplicationUser { get; }
         void Save();
     }
 }

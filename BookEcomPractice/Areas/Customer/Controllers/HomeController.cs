@@ -23,20 +23,28 @@ namespace BookEcomPractice.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            //var ClaimsIdentity = (ClaimsIdentity)User.Identity;
-            //var Claims = ClaimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            //if (Claims != null)
-            //{
-            //    var Count = _unitOfWork.ShoppingCart.GetAll
-            //        (Sc => Sc.ApplicationUserId == Claims.Value).ToList().Count;
-            //    HttpContext.Session.SetInt32(SD.Ss_CartSessionCount, Count);
-            //}
+            var ClaimsIdentity = (ClaimsIdentity)User.Identity;
+            var Claims = ClaimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (Claims != null)
+            {
+                var Count = _unitOfWork.ShoppingCart.GetAll
+                    (Sc => Sc.ApplicationUserId == Claims.Value).ToList().Count;
+                HttpContext.Session.SetInt32(SD.Ss_CartSessionCount, Count);
+            }
             var Productlist = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
             return View(Productlist);
         }
 
         public IActionResult Details(int id)
         {
+            var ClaimsIdentity = (ClaimsIdentity)User.Identity;
+            var Claims = ClaimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (Claims != null)
+            {
+                var Count = _unitOfWork.ShoppingCart.GetAll
+                    (Sc => Sc.ApplicationUserId == Claims.Value).ToList().Count;
+                HttpContext.Session.SetInt32(SD.Ss_CartSessionCount, Count);
+            }
             var productInDb = _unitOfWork.Product.FirstOrDefault(p => p.Id == id, includeProperties: "Category,CoverType");
             if (productInDb == null) return NotFound();
             var ShoppingCart = new ShoppingCart()

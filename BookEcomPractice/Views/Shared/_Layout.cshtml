@@ -1,4 +1,6 @@
 ﻿@using BookEcomPractice.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,12 +64,12 @@
 								</div>
 							</li>
 						}
-						@* @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= null&&
+						@if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= null&&
 												HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= 0)
 						{
 							var Count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount);
 							<li>
-								<a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
+								<a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-black">
 									<i class="fas fa-shopping-cart"></i>&nbsp;(@Count)
 								</a>
 							</li>
@@ -75,11 +77,11 @@
 						else
 						{
 							<li>
-								<a class="nav-link text-white">
+								<a class="nav-link text-black">
 									<i class="fas fa-shopping-cart"></i>&nbsp;(0)
 								</a>
 							</li>
-						} *@
+						} 
 					</ul>
                     <partial name="_LoginPartial" />
                 </div>
