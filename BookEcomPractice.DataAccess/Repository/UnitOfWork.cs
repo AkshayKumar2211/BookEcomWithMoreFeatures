@@ -19,6 +19,9 @@ namespace BookEcomPractice.DataAccess.Repository
             CoverType= new CoverTypeRepository(_context);
             Product=new ProductRepository(_context);
             Company=new CompanyRepository(_context);
+            ShoppingCart=new ShoppingCartRepository(_context);
+            OrderHeader=new OrderHeaderRepository(_context);
+            OrderDetail=new OrderDetailRepository(_context);
         }
         public ICategoryRepository Category { get; private set; }
 
@@ -27,6 +30,11 @@ namespace BookEcomPractice.DataAccess.Repository
         public IProductRepository Product { get; private set; }
 
         public ICompanyRepository Company { get; private set; }
+
+        public IShoppingCartRepository ShoppingCart { get; private set; }
+
+        public IOrderDetailRepository OrderDetail { get; private set; }
+        public IOrderHeaderRepository OrderHeader { get; private set; }
 
          public void Save()
         {
